@@ -30,13 +30,13 @@ This project is intended to help users view and connect with talents for potenti
 1. **Clone the repository** (if you haven't already):
 
     ```bash
-    git clone https://github.com/your-username/talent-profile-page.git
+    git clone https://github.com/na-ch7/Advitiya.git
     ```
 
 2. **Navigate to the project directory**:
 
     ```bash
-    cd talent-profile-page
+    cd index.html
     ```
 
 3. **Open the HTML files** in your preferred web browser (e.g., `index.html`, `profile.html`, etc.).
