@@ -1,21 +1,17 @@
-// General: Handle navigation between pages
+
 document.addEventListener('DOMContentLoaded', () => {
     const currentPath = window.location.pathname;
 
-    // Highlight current navigation or log the current page
     console.log(`Current Path: ${currentPath}`);
 
-    // Added code for handling the "Login" button click and redirection to client_login.html
-    const loginButton = document.getElementById('loginButton');  // Get the Login button by its ID
-    if (loginButton) {  // Check if the button exists
+    const loginButton = document.getElementById('loginButton'); 
+    if (loginButton) {  
         loginButton.addEventListener('click', () => {
-            // Redirect to the client_login.html page
             window.location.href = 'client_login.html'; 
         });
     }
 });
 
-// File: client_login.html - Handle login form submission
 if (window.location.pathname.includes('client_login.html')) {
     const loginForm = document.querySelector('form');
     loginForm.addEventListener('submit', (event) => {
@@ -26,7 +22,6 @@ if (window.location.pathname.includes('client_login.html')) {
 
         if (email && password) {
             alert('Login successful!');
-            // Add your actual login logic here
             window.location.href = 'profile.html';
         } else {
             alert('Please enter both email and password.');
@@ -34,7 +29,6 @@ if (window.location.pathname.includes('client_login.html')) {
     });
 }
 
-// File: reg_talent.html - Handle talent registration form submission
 if (window.location.pathname.includes('reg_talent.html')) {
     const registrationForm = document.querySelector('form');
     registrationForm.addEventListener('submit', (event) => {
@@ -66,7 +60,6 @@ if (window.location.pathname.includes('profile.html')) {
 
     resumeButton.addEventListener('click', () => {
         alert('Displaying resume...');
-        // Logic to display resume can be added here
     });
 
     meetingButton.addEventListener('click', () => {
@@ -75,7 +68,6 @@ if (window.location.pathname.includes('profile.html')) {
     });
 }
 
-// File: Exploretalents.html - Handle search functionality
 if (window.location.pathname.includes('Exploretalents.html')) {
     const searchInput = document.querySelector('.search');
     const searchButton = document.querySelector('.login');
@@ -84,7 +76,7 @@ if (window.location.pathname.includes('Exploretalents.html')) {
         const query = searchInput.value.trim();
         if (query) {
             alert(`Searching for: ${query}`);
-            // Add search logic here
+            
         } else {
             alert('Please enter a search term.');
         }
