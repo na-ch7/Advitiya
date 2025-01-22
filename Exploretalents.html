@@ -1,1 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Dashboard</title>
+    <style>
+        body {
+            background-color: black;
+            background-image: url('https://img.freepik.com/free-vector/abstract-realistic-technology-particle-screensaver_52683-33640.jpg?t=st=1737560056~exp=1737563656~hmac=487eb2683462946027943f688277de181496904d14b017ad8da1486fa025d5e3&w=996');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
 
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            color: lightgreen;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .search {
+            background-color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            color: black;
+            font-size: 1rem;
+        }
+
+        .login {
+            background-color: lightgreen;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            color: black;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .login:hover {
+            background-color: green;
+            color: white;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #1c1c1c;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        .card h2 {
+            font-size: 1.2rem;
+            color: white;
+            margin: 0;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: gray;
+            margin: 5px 0;
+            text-align: center;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .actions a {
+            text-decoration: none;
+            font-size: 0.9rem;
+            color: lightgreen;
+            transition: color 0.3s;
+        }
+
+        .actions a:hover {
+            color: green;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>TALENT DISPLAY</h1>
+            <div class="controls">
+                <input class="search" type="text" placeholder="Search...">
+                <button class="login" id="loginButton">Login</button>
+
+            </div>
+        </div>
+        <div class="team-grid">
+            <div class="card">
+                <img src="https://i.pinimg.com/236x/05/11/45/051145a8e366876f859378154aa7df8b.jpg" alt="Profile Picture">
+                <h2>NAME</h2>
+                <p>Email: </p>
+                <p>Skills: </p>
+                <div class="actions">
+                    <a href="profile.html">View</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://i.pinimg.com/236x/05/11/45/051145a8e366876f859378154aa7df8b.jpg" alt="Profile Picture">
+                <h2>NAME</h2>
+                <p>Email: </p>
+                <p>Skills: </p>
+                <div class="actions">
+                    <a href="profile.html">View</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://i.pinimg.com/236x/05/11/45/051145a8e366876f859378154aa7df8b.jpg" alt="Profile Picture">
+                <h2>NAME</h2>
+                <p>Email: </p>
+                <p>Skills: </p>
+                <div class="actions">
+                    <a href="profile.html">View</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://i.pinimg.com/236x/05/11/45/051145a8e366876f859378154aa7df8b.jpg" alt="Profile Picture">
+                <h2>NAME</h2>
+                <p>Email: </p>
+                <p>Skills: </p>
+                <div class="actions">
+                    <a href="profile.html">View</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://i.pinimg.com/236x/05/11/45/051145a8e366876f859378154aa7df8b.jpg" alt="Profile Picture">
+                <h2>NAME</h2>
+                <p>Email: </p>
+                <p>Skills: </p>
+                <div class="actions">
+                
+                    <a href="profile.html">View</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://i.pinimg.com/236x/05/11/45/051145a8e366876f859378154aa7df8b.jpg" alt="Profile Picture">
+                <h2>NAME</h2>
+                <p>Email: </p>
+                <p>Skills: </p>
+                <div class="actions">
+                    <a href="profile.html">View</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://i.pinimg.com/236x/05/11/45/051145a8e366876f859378154aa7df8b.jpg" alt="Profile Picture">
+                <h2>NAME</h2>
+                <p>Email: </p>
+                <p>Skills: </p>
+                <div class="actions">
+                    <a href="profile.html">View</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://i.pinimg.com/236x/05/11/45/051145a8e366876f859378154aa7df8b.jpg" alt="Profile Picture">
+                <h2>NAME</h2>
+                <p>Email: </p>
+                <p>Skills: </p>
+                <div class="actions">
+                    <a href="profile.html">View</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="script.js"></script>
+</html>
