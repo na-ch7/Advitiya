@@ -5,7 +5,7 @@ import {
   handleLogin,
 } from "./auth.service";
 import { UserSchema, UserSchemaType } from "./auth.schema";
-import { validateRequest } from "../../shared/middlewares/requestValidator"
+import { validateRequest } from "../../shared/middlewares/requestValidator";
 
 export async function talentSignUp(
   req: Request,
@@ -14,8 +14,8 @@ export async function talentSignUp(
 ) {
   try {
     const { email, password } = req.body;
-    const role = 'talent';
-    const signupCredentials: UserSchemaType = { email, password, role};
+    const role = "talent";
+    const signupCredentials: UserSchemaType = { email, password, role };
     await handleTalentSignUp(signupCredentials);
     res.status(201).json({ message: "Talent signed up successfully" });
   } catch (error) {
@@ -30,24 +30,26 @@ export async function clientSignUp(
 ) {
   try {
     const { email, password } = req.body;
-    const role = 'client'
-    const signupCredentials: UserSchemaType = { email, password, role};
+    const role = "client";
+    const signupCredentials: UserSchemaType = { email, password, role };
     await handleClientSignUp(signupCredentials);
-    res.status(201).json({ 
+    res.status(201).json({
       success: true,
-      message: "Client signed up successfully" });
+      message: "Client signed up successfully",
+    });
   } catch (error) {
     next(error);
   }
 }
 export async function login(req: Request, res: Response, next: NextFunction) {
   try {
-    const credentials = (req.body);
+    const credentials = req.body;
     const token = await handleLogin(credentials);
-    res.status(200).json({ 
+    res.status(200).json({
       success: true,
-      message: 'Logged in Successfully',
-      token });
+      message: "Logged in Successfully",
+      token,
+    });
   } catch (error) {
     next(error);
   }
@@ -55,16 +57,8 @@ export async function login(req: Request, res: Response, next: NextFunction) {
 
 export default (): Router => {
   const app = Router();
-  app.post('/login', validateRequest('body', UserSchema), login);
-  app.post(
-    '/client/signup',
-    validateRequest('body', UserSchema),
-    clientSignUp,
-  );
-  app.post(
-    '/talent/signup',
-    validateRequest('body', UserSchema),
-    talentSignUp,
-  );
+  app.post("/login", validateRequest("body", UserSchema), login);
+  app.post("/client/signup", validateRequest("body", UserSchema), clientSignUp);
+  app.post("/talent/signup", validateRequest("body", UserSchema), talentSignUp);
   return app;
 };

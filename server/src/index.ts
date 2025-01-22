@@ -1,6 +1,6 @@
-import express from 'express';
-import config from './config';
-import Loaders from './loaders';
+import express from "express";
+import config from "./config";
+import Loaders from "./loaders";
 
 async function start() {
   const app = express();
@@ -11,7 +11,7 @@ async function start() {
       ------------ Server listening on port: ${config.PORT}------------
     `);
     })
-    .on('error', (err: Error) => {
+    .on("error", (err: Error) => {
       console.log(err);
       process.exit(1);
     });

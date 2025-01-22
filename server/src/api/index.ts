@@ -5,7 +5,7 @@ const router = Router();
 
 export default (): Router => {
   const app = Router();
-  app.use('/auth', authController());
+  app.use("/auth", authController());
 
   return app;
 };

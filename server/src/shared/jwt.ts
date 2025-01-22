@@ -1,8 +1,8 @@
-import * as JWT from 'jsonwebtoken';
-import config from '../config';
+import * as JWT from "jsonwebtoken";
+import config from "../config";
 
 export const JWT_EXPIRY = {
-    expiresIn: '2d',
+  expiresIn: "2d",
 };
 
 export default function generateToken(data: string): string {
@@ -12,7 +12,7 @@ export default function generateToken(data: string): string {
   } catch (error) {
     throw {
       statusCode: 500,
-      message: 'Token generation failed',
+      message: "Token generation failed",
     };
   }
 }
@@ -26,7 +26,7 @@ export function verifyToken(token: string) {
   } catch (error) {
     throw {
       statusCode: 402,
-      message: 'Invalid Token'
+      message: "Invalid Token",
     };
   }
 }

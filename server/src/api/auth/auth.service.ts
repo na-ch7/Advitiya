@@ -1,32 +1,30 @@
 import bcrypt from "bcryptjs";
-import generateToken from "../../shared/jwt"
+import generateToken from "../../shared/jwt";
 import db from "../../loaders/db";
 import { UserSchemaType } from "./auth.schema";
-import { TalentSchemaType } from "../talent/talent.schema"
-import { hash } from "../../shared/utils"
+import { TalentSchemaType } from "../talent/talent.schema";
+import { hash } from "../../shared/utils";
 
-export async function handleTalentSignUp(
-  credentials: UserSchemaType
-) {
-  const talents = (await db()).collection<TalentSchemaType>('talent');
+export async function handleTalentSignUp(credentials: UserSchemaType) {
+  const talents = (await db()).collection<TalentSchemaType>("talent");
   const data = await talents.findOne({ email: credentials.email });
   if (data) {
     throw {
       statusCode: 409,
-      message:'User already exists',
+      message: "User already exists",
     };
   }
   const hashedPassword = await hash(credentials.password);
 
   const newTalent = {
-    name: " ", 
+    name: " ",
     email: credentials.email,
     password: hashedPassword,
     contact: {
-      email: credentials.email, 
-      phone: "", 
+      email: credentials.email,
+      phone: "",
     },
-    skills: [], 
+    skills: [],
     personalDescription: "",
     isApproved: false,
     isAdmin: false,
@@ -38,12 +36,12 @@ export async function handleTalentSignUp(
 }
 
 export async function handleClientSignUp(credentials: UserSchemaType) {
-  const clients = (await db()).collection<UserSchemaType>('client');
+  const clients = (await db()).collection<UserSchemaType>("client");
   const data = await clients.findOne({ email: credentials.email });
   if (data) {
     throw {
       statusCode: 409,
-      message:'User already exists',
+      message: "User already exists",
     };
   }
   const hashedPassword = await hash(credentials.password);
@@ -51,19 +49,19 @@ export async function handleClientSignUp(credentials: UserSchemaType) {
   const newClient = {
     email: credentials.email,
     password: hashedPassword,
-    role: "client"
+    role: "client",
   };
 
   await clients.insertOne(newClient);
 }
 
 export async function handleLogin(
-  credentials: UserSchemaType
+  credentials: UserSchemaType,
 ): Promise<string> {
   const { email, password, role } = credentials;
   const database = await db();
 
-  const collectionName = role === "client" ? "clients" : "users"; 
+  const collectionName = role === "client" ? "clients" : "users";
   const collection = database.collection(collectionName);
 
   const user = await collection.findOne({ email });
@@ -78,7 +76,7 @@ export async function handleLogin(
   if (!isValidPassword) {
     throw {
       statusCode: 401,
-      message: 'Unauthorized Access',
+      message: "Unauthorized Access",
     };
   }
 
