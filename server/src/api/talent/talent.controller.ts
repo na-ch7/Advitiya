@@ -1,68 +1,45 @@
-import {
-  type Request,
-  type Response,
-  type NextFunction,
-  Router,
-} from "express";
-import {
-  registerTalent,
-  getAllApprovedTalents,
-  approveTalent,
-  rejectTalent,
-} from "./talent.service";
+import { Request, Response, Router } from "express";
+import { registerTalent, getAllTalents } from "./talent.service";
+import { TalentSchema } from "./talent.schema";
+import { validateRequest } from "../../shared/middlewares/requestValidator";
 
-export const handleTalentRegistration = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+export async function handleTalentRegistration(req: Request, res: Response) {
   try {
-    const talent = await registerTalent(req.body);
-    res.status(200).json({
-      success: true,
-      message: "Talent Registered",
-      talent,
+    const talentData = req.body;
+    const newTalent = await registerTalent(talentData);
+
+    res.status(201).json({
+      message: "Talent registered successfully. Awaiting admin approval.",
+      talent: newTalent,
     });
   } catch (error) {
-    next(error);
+    res.status(500).json({
+      message: "Internal Server Error",
+    });
   }
-};
+}
 
-export const fetchApprovedTalents = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+export async function handleGetAllTalents(req: Request, res: Response) {
   try {
-    const talents = await getAllApprovedTalents();
-    res.status(200).json(talents);
+    const talents = await getAllTalents();
+    res.status(200).json({
+      message: "Talents fetched successfully.",
+      talents,
+    });
   } catch (error) {
-    res.status(500).json({ message: "Error fetching talents.", error });
+    res.status(500).json({
+      message: "Internal Server Error",
+    });
   }
-};
+}
 
-export const approveTalentProfile = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  try {
-    const updatedTalent = await approveTalent(req.params.talentId);
-    res.status(200).json({ message: "Talent approved.", updatedTalent });
-  } catch (error) {
-    res.status(500).json({ message: "Error approving talent.", error });
-  }
-};
-
-export const rejectTalentProfile = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  try {
-    await rejectTalent(req.params.talentId);
-    res.status(200).json({ message: "Talent rejected." });
-  } catch (error) {
-    res.status(500).json({ message: "Error rejecting talent.", error });
-  }
+export default (): Router => {
+  const app = Router();
+  app.post(
+    "/register",
+    validateRequest("body", TalentSchema),
+    handleTalentRegistration,
+  );
+  app.get("/", validateRequest("body", TalentSchema), handleGetAllTalents);
+  return app;
 };

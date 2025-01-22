@@ -1,6 +1,6 @@
 import z from "zod";
 
-const TalentSchema = z.object({
+export const TalentSchema = z.object({
   name: z.string(),
   email: z.string(),
   password: z.string(),

@@ -1,55 +1,44 @@
-const talentsDB: Talent[] = [];
+import db from "../../loaders/db";
+import { TalentSchemaType } from "./talent.schema";
+import { hash } from "../../shared/utils";
 
-export function talentLogin() {}
+const talentsCollection = async () =>
+  (await db()).collection<TalentSchemaType>("talents");
 
-const saveTalentToDB = async (talent: Talent): Promise<Talent> => {
-  talentsDB.push(talent);
-  return talent;
-};
+export async function registerTalent(
+  talentData: TalentSchemaType,
+): Promise<TalentSchemaType> {
+  const collection = await talentsCollection();
 
-const getTalentsFromDB = async (filter: Partial<Talent>): Promise<Talent[]> => {
-  return talentsDB.filter((talent) => {
-    return Object.keys(filter).every((key) => {
-      return filter[key as keyof Talent] === talent[key as keyof Talent];
-    });
-  });
-};
-
-const updateTalentInDB = async (
-  talentId: string,
-  updates: Partial<Talent>,
-): Promise<Talent | null> => {
-  const index = talentsDB.findIndex((talent) => talent.name === talentId); // Assuming name as ID for simplicity
-  if (index !== -1) {
-    talentsDB[index] = { ...talentsDB[index], ...updates };
-    return talentsDB[index];
+  const existingTalent = await collection.findOne({ email: talentData.email });
+  if (existingTalent) {
+    throw {
+      statusCode: 409,
+      message: "A talent with this email already exists.",
+    };
   }
-  return null;
-};
 
-const deleteTalentFromDB = async (talentId: string): Promise<boolean> => {
-  const index = talentsDB.findIndex((talent) => talent.name === talentId); // Assuming name as ID for simplicity
-  if (index !== -1) {
-    talentsDB.splice(index, 1);
-    return true;
-  }
-  return false;
-};
+  const hashedPassword = await hash(talentData.password);
 
-// Functions using Zod for validation
-export const registerTalent = async (talentData: any) => {
-  const parsedTalent = TalentSchema.parse({ ...talentData, approved: false });
-  return await saveTalentToDB(parsedTalent);
-};
+  const newTalent: TalentSchemaType = {
+    ...talentData,
+    password: hashedPassword,
+    name: talentData.name,
+    skills: talentData.skills,
+    personalDescription: talentData.personalDescription,
+    profilePhoto: talentData.profilePhoto,
+    isApproved: false,
+    isDeleted: false,
+  };
 
-export const getAllApprovedTalents = async () => {
-  return await getTalentsFromDB({ approved: true });
-};
+  await collection.insertOne(newTalent);
 
-export const approveTalent = async (talentId: string) => {
-  return await updateTalentInDB(talentId, { approved: true });
-};
+  return newTalent;
+}
 
-export const rejectTalent = async (talentId: string) => {
-  return await deleteTalentFromDB(talentId);
-};
+export async function getAllTalents(): Promise<TalentSchemaType[]> {
+  const collection = await talentsCollection();
+  return await collection
+    .find({ isDeleted: false, isApproved: true })
+    .toArray();
+}
