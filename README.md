@@ -1,4 +1,4 @@
-# 🌟 Talent Module for JPD Hub
+# 🌟 Talent Module for (JPD Hub)
 
 <div align="center"> <p>A comprehensive platform to connect clients with talented professionals through a seamless and secure experience.</p> </div>
 
@@ -50,4 +50,4 @@ This project is intended to help users view and connect with talents for potenti
 
 If you have any questions or would like to contribute to the project, feel free to reach out:
 
-- **Email**: [mundraankita07@gmail.com, tanishka.16k@gmail.com, navyachandra27@gmail.com]
+- **Email**: [mundraankita07@gmail.com, tanishka.16k@gmail.com, navyachandra27@gmail.com, omprakashrouttt1@gmail.com]
